@@ -2,6 +2,7 @@
 
 class Post
 {
+    // Create Post
     public function create($DATA, $FILES, $image_class = null)
     {
         $_SESSION['error'] = "";
@@ -63,6 +64,68 @@ class Post
 
         if (!isset($_SESSION['error']) || $_SESSION['error'] == "") {
             $query = "insert into blogs (title,post,date,user_url,image,url_address) values (:title,:post,:date,:user_url,:image,:url_address)";
+            $check = $DB->write($query, $arr);
+
+            if ($check) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    // Edit Post
+    public function edit($DATA, $FILES, $image_class = null)
+    {
+        $_SESSION['error'] = "";
+        $_SESSION['post_data'] = $DATA;
+
+        $DB = Database::newInstance();
+        $arr['title']       = ucwords($DATA['title']);
+        $arr['post']        = $DATA['post'];
+        $arr['url_address'] = $DATA['url_address'];
+
+        // Validation
+        if (!preg_match("/^[a-zA-Z 0-9._\-]+$/", trim($arr['title']))) {
+            $_SESSION['error'] .= "Invalid title for this post<br>";
+        }
+
+        if (empty($arr['post'])) {
+            $_SESSION['error'] .= "Please enter some valid content<br>";
+        }
+
+        // Image handling
+        $arr2['image'] = "";
+        $allowed = ["image/jpeg"];
+        $size = 10 * 1024 * 1024; // 10MB
+        $folder = "uploads/";
+
+        if (!file_exists($folder)) {
+            mkdir($folder, 0777, true);
+        }
+
+        // Check for files
+        foreach ($FILES as $key => $img_row) {
+            if ($img_row['error'] == 0 && in_array($img_row['type'], $allowed)) {
+                if ($img_row['size'] < $size) {
+                    $destination = $folder . $image_class->generate_filename(60) . ".jpg";
+                    move_uploaded_file($img_row['tmp_name'], $destination);
+                    $arr2[$key] = $destination;
+                    $image_class->resize_image($destination, $destination, 1500, 1500);
+                } else {
+                    $_SESSION['error'] .= $key . "Size is bigger than required size<br>";
+                }
+            }
+        }
+
+        if (!isset($_SESSION['error']) || $_SESSION['error'] == "") {
+
+            if ($arr2['image'] == "") {
+                $query = "update blogs set title = :title, post = :post where url_address = :url_address limit 1";
+            } else {
+                $arr['image'] = $arr2['image'];
+                $query = "update blogs set title = :title, post = :post, image = :image where url_address = :url_address limit 1";
+            }
+
             $check = $DB->write($query, $arr);
 
             if ($check) {

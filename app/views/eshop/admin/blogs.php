@@ -36,12 +36,12 @@
                     <?php foreach ($blogs as $blog): ?>
                         <tr>
                             <td><?= htmlspecialchars($blog->title ?? '', ENT_QUOTES) ?></td>
-                            <td><a href="<?=ROOT?>profile/<?= htmlspecialchars($blog->user_url ?? '', ENT_QUOTES) ?>"><?= htmlspecialchars($blog->user_data->name ?? '', ENT_QUOTES) ?></a></td>
+                            <td><a href="<?= ROOT ?>profile/<?= htmlspecialchars($blog->user_url ?? '', ENT_QUOTES) ?>"><?= htmlspecialchars($blog->user_data->name ?? '', ENT_QUOTES) ?></a></td>
                             <td><?= htmlspecialchars($blog->post ?? '', ENT_QUOTES) ?></td>
-                            <td class="blog-cell"><img src="<?=ROOT. nl2br(htmlspecialchars($blog->image ?? '', ENT_QUOTES)) ?>" style="width:80px;" /></td>
+                            <td class="blog-cell"><img src="<?= ROOT . $blog->image ?>" style="width:80px;" /></td>
                             <td><?= date("jS M Y H:i a", strtotime($blog->date)) ?></td>
                             <td>
-                            <a href="<?= ROOT ?>admin/blogs?delete=<?= urlencode($blog->url_address) ?>" class="btn btn-sm btn-primary">
+                                <a href="<?= ROOT ?>admin/blogs?edit=<?= urlencode($blog->url_address) ?>" class="btn btn-sm btn-primary">
                                     <i class="fa fa-pencil"></i> Edit
                                 </a>
 
@@ -54,26 +54,54 @@
                 <?php endif; ?>
             </tbody>
 
+        <?php elseif ($mode == "edit"): ?>
+            <?php if (isset($errors)): ?>
+                <div class="status alert alert-danger">
+                    <?= $errors ?>
+                </div>
+            <?php endif; ?>
+
+            <h2>Edit Post</h2>
+            <form method="post" enctype="multipart/form-data">
+
+                <label for="title">Post Title</label>
+                <input type="text" class="form-control" value="<?= isset($POST['title']) ? $POST['title'] : ''; ?>" id="title" name="title">
+                <br>
+
+                <label for="image">Post Image</label>
+                <input type="file" class="form-control" value="<?= isset($POST['image']) ? $POST['image'] : ''; ?>" id="image" name="image">
+                <input type="hidden" name="url_address" value="<?= isset($POST['url_address']) ? $POST['url_address'] : ''; ?>">
+                <br>
+
+                <label for="post">Post Text</label>
+                <textarea class="form-control" id="post" name="post"><?= isset($POST['post']) ? $POST['post'] : ''; ?></textarea>
+                <br>
+                <input type="submit" class="btn btn-success pull-right" value="Save">
+                <hr>
+                <img src="<?= ROOT ?><?= isset($POST['image']) ? $POST['image'] : ''; ?>" style="width: 200px;">
+            </form>
+
         <?php elseif ($mode == "add_new"): ?>
 
             <?php if (isset($errors)): ?>
                 <div class="status alert alert-danger">
-                    <?=$errors?>
+                    <?= $errors ?>
                 </div>
-            <?php endif; ?> 
+            <?php endif; ?>
 
+            <h2>Add New Post</h2>
             <form method="post" enctype="multipart/form-data">
 
                 <label for="title">Post Title</label>
-                <input type="text" class="form-control" value="<?=isset($POST['title']) ? $POST['title']: '';?>" id="title" name="title">
+                <input type="text" class="form-control" value="<?= isset($POST['title']) ? $POST['title'] : ''; ?>" id="title" name="title">
                 <br>
 
                 <label for="image">Post Image</label>
-                <input type="file" class="form-control" value="<?=isset($POST['image']) ? $POST['image'] : '';?>" id="image" name="image">
+                <input type="file" class="form-control" value="<?= isset($POST['image']) ? $POST['image'] : ''; ?>" id="image" name="image">
                 <br>
 
                 <label for="post">Post Text</label>
-                <textarea class="form-control" id="post"  name="post"><?=isset($POST['post']) ? $POST['post'] : '';?></textarea>
+                <textarea class="form-control" id="post" name="post"><?= isset($POST['post']) ? $POST['post'] : ''; ?></textarea>
                 <br>
                 <input type="submit" class="btn btn-success pull-right" value="Post">
             </form>

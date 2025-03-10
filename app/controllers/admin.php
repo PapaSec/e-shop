@@ -243,7 +243,6 @@ class Admin extends Controller
     {
 
         $type = 'Blog Posts';
-
         $User = $this->load_model("User");
         $post_class = $this->load_model("post");
 
@@ -261,13 +260,23 @@ class Admin extends Controller
             $mode = "add_new";
         }
 
+        if (isset($_GET['edit'])) {
+            $mode = "edit";
+        }
+
         if (isset($_GET['delete_confirmed'])) {
             $mode = "delete_confirmed";
             $id = $_GET['delete_confirmed'];
             $posts = $post_class->delete($id);
         }
 
-        if ($mode == "delete") {
+        if ($mode == "edit") {
+            $id = $_GET['edit'];
+            $blogs = $post_class->get_one($id);
+
+            $data['POST'] = (array)$blogs;
+        } else
+            if ($mode == "delete") {
             $id = $_GET['delete'];
             $blogs = $post_class->get_one($id);
         } else {
@@ -289,7 +298,12 @@ class Admin extends Controller
         if (count($_POST) > 0) {
             $post = $this->load_model("post");
             $image_class = $this->load_model("image");
-            $post_class->create($_POST, $_FILES, $image_class);
+
+            if ($mode == "edit") {
+                $post_class->edit($_POST, $_FILES, $image_class);
+            } else {
+                $post_class->create($_POST, $_FILES, $image_class);
+            }
 
             if (isset($_SESSION['error']) && $_SESSION['error'] != "") {
                 $data['errors'] = $_SESSION['error'];
@@ -298,6 +312,7 @@ class Admin extends Controller
                 redirect("admin/blogs");
             }
         }
+
         $data['blogs'] = $blogs;
         $data['mode'] = $mode;
         $data['page_title'] = "Admin - $type";
