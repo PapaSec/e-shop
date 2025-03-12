@@ -24,33 +24,23 @@ class Blog extends Controller
         $DB = Database::newInstance();
 
         if ($search) {
-            $arr['description'] = "%" . $find . "%";
-            $ROWS = $DB->read("select * from products where description like :description ", $arr);
+            $arr['title'] = "%" . $find . "%";
+            $ROWS = $DB->read("select * from blogs where title like :title ", $arr);
         } else {
-            $ROWS = $DB->read("select * from products");
+            $ROWS = $DB->read("select * from blogs order by id desc");
         }
 
         $data['page_title'] = "Blog";
 
         if ($ROWS) {
             foreach ($ROWS as $key => $row) {
-                $ROWS[$key]->image = $image_class->get_thumb_post($ROWS[$key]->image);
+                $ROWS[$key]->image = $image_class->get_thumb_blog_post($ROWS[$key]->image);
             }
         }
 
         // get all categories
         $category = $this->load_model("category");
         $data['categories'] = $category->get_all();
-
-        // get all slider content
-        $Slider = $this->load_model("slider");
-        $data['slider'] = $Slider->get_all();
-
-        if ($data['slider']) {
-            foreach ($data['slider'] as $key => $row) {
-                $data['slider'][$key]->image = $image_class->get_thumb_post($row->image, 484, 441);
-            }
-        }
 
         $data['ROWS'] = $ROWS;
         $data['show_search'] = true;

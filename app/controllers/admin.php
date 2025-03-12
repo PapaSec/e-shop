@@ -243,8 +243,9 @@ class Admin extends Controller
     {
 
         $type = 'Blog Posts';
-        $User = $this->load_model("User");
-        $post_class = $this->load_model("post");
+        $User        = $this->load_model("User");
+        $post_class  = $this->load_model("post");
+        $image_class = $this->load_model("Image");
 
         $user_data = $User->check_login(true, ["admin"]);
         if (is_object($user_data)) {
@@ -279,10 +280,18 @@ class Admin extends Controller
             if ($mode == "delete") {
             $id = $_GET['delete'];
             $blogs = $post_class->get_one($id);
+
+            if ($blogs) {
+                if (file_exists($blogs->image)) {
+                    $blogs->image = $image_class->get_thumb_post($blogs->image);
+                }
+                $blogs->user_data = $User->get_user($blogs->user_url);
+            }
+
+            $data['POST'] = (array)$blogs;
         } else {
             $blogs = $post_class->get_all();
 
-            $image_class = $this->load_model("Image");
             if ($blogs) {
                 foreach ($blogs as $key => $row) {
                     if (file_exists($blogs[$key]->image)) {

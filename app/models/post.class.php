@@ -142,7 +142,7 @@ class Post
 
         $DB = Database::newInstance();
         $query = "delete from blogs where url_address = :url_address limit 1";
-        $DB->write($query);
+        $DB->write($query, $arr);
     }
 
     public function get_one($url_address)

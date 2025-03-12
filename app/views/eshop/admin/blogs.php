@@ -108,50 +108,48 @@
 
         <?php elseif ($mode == "delete_confirmed"): ?>
 
-            <div class="alert alert-success alert-dismissible fade show">
-                Message deleted successfully
-                <button type="button" class="close" data-dismiss="alert">&times;</button>
-            </div>
-            <a href="<?= ROOT ?>admin/messages" class="btn btn-outline-primary">
-                Back to messages
+            <div class="status alert alert-success">
+                Post deleted successfully</div>
+            <a href="<?= ROOT ?>admin/blogs">
+                <input type="button" class="btn btn-success pull-right" value="Back to posts">
             </a>
 
-        <?php elseif ($mode == "delete" && is_object($messages)): ?>
+        <?php elseif ($mode == "delete" && is_object($blogs)): ?>
             <div class="alert alert-warning">
-                Are you sure you want to delete this message?
+                Are you sure you want to delete this Post?
             </div>
-
-            <table class="table table-bordered">
-                <thead class="thead-dark">
-                    <tr>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Subject</th>
-                        <th>Message</th>
-                        <th>Date Created</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><?= htmlspecialchars($messages->name ?? '', ENT_QUOTES) ?></td>
-                        <td><?= htmlspecialchars($messages->email ?? '', ENT_QUOTES) ?></td>
-                        <td><?= htmlspecialchars($messages->subject ?? '', ENT_QUOTES) ?></td>
-                        <td class="message-cell"><?= nl2br(htmlspecialchars($messages->message ?? '', ENT_QUOTES)) ?></td>
-                        <td><?= date("jS M Y H:i a", strtotime($messages->date)) ?></td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <div class="mt-4">
-                <a href="<?= ROOT ?>admin/messages?delete_confirmed=<?= urlencode($messages->id) ?>" class="btn btn-danger">
-                    Confirm Delete
-                </a>
-                <a href="<?= ROOT ?>admin/messages" class="btn btn-secondary">
-                    Cancel
-                </a>
-            </div>
-        <?php endif; ?>
+            <thead class="thead-dark">
+                <tr>
+                    <th>Title</th>
+                    <th>Owner</th>
+                    <th>Post</th>
+                    <th>Image</th>
+                    <th>Date Created</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><?= htmlspecialchars($blogs->title ?? '', ENT_QUOTES) ?></td>
+                    <td><a href="<?= ROOT ?>profile/<?= htmlspecialchars($blogs->user_url ?? '', flags: ENT_QUOTES) ?>"><?= htmlspecialchars($blogs->user_data->name ?? '', ENT_QUOTES) ?></a></td>
+                    <td><?= htmlspecialchars($blogs->post ?? '', ENT_QUOTES) ?></td>
+                    <td class="blogs-cell"><img src="<?= ROOT . $blogs->image ?>" style="width:80px;" /></td>
+                    <td><?= date("jS M Y H:i a", strtotime($blogs->date)) ?></td>
+                </tr>
+                <div class="mt-4">
+                    <a href="<?= ROOT ?>admin/blogs?delete_confirmed=<?= urlencode($blogs->url_address) ?>" class="btn btn-danger">
+                        Confirm Delete
+                    </a>
+                    <a href="<?= ROOT ?>admin/blogs" class="btn btn-primary">
+                        Cancel
+                    </a>
+                </div>
+                <br>
+            </tbody>
     </table>
+
+
+<?php endif; ?>
+</table>
 </div>
 
 <?php $this->view("admin/footer", $data); ?>
