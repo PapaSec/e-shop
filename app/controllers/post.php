@@ -1,8 +1,8 @@
 <?php
 
-class Blog extends Controller
+class Post extends Controller
 {
-    public function index()
+    public function index($url_address = '')
     {
 
         // check if its a serach request
@@ -27,24 +27,25 @@ class Blog extends Controller
             $arr['title'] = "%" . $find . "%";
             $ROWS = $DB->read("select * from blogs where title like :title ", $arr);
         } else {
-            $ROWS = $DB->read("select * from blogs order by id desc");
+            $arr = array();
+            $arr['url_address'] = $url_address;
+            $ROWS = $DB->read("select * from blogs where url_address = :url_address limit 1", $arr);
         }
 
-        $data['page_title'] = "Blog";
+        $data['page_title'] = "Post - Unkown";
 
         if ($ROWS) {
-            foreach ($ROWS as $key => $row) {
-                $ROWS[$key]->image = $image_class->get_thumb_blog_post($ROWS[$key]->image);
-                $ROWS[$key]->user_data = $User->get_user($ROWS[$key]->user_url);
-            }
+            $data['page_title'] = $ROWS[0]->title;
+            //$ROWS[0]->image = $image_class->get_thumb_blog_post($ROWS[0]->image);
+            $ROWS[0]->user_data = $User->get_user($ROWS[0]->user_url);
         }
 
         // get all categories
         $category = $this->load_model("category");
         $data['categories'] = $category->get_all();
 
-        $data['ROWS'] = $ROWS;
+        $data['row'] = $ROWS[0];
         $data['show_search'] = true;
-        $this->view("blog", $data);
+        $this->view("single_post", $data);
     }
 }

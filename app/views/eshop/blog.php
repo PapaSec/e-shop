@@ -13,10 +13,10 @@
 						<?php foreach ($ROWS as $row): ?>
 							<!--single-blog-post-->
 							<div class="single-blog-post">
-								<h3><?= $row->title ?></h3>
+								<h3><?= htmlspecialchars($row->title) ?></h3>
 								<div class="post-meta">
 									<ul>
-										<li><i class="fa fa-user"></i> Mac Doe</li>
+										<li><i class="fa fa-user"></i><?= $row->user_data->name ?></li>
 										<li><i class="fa fa-clock-o"></i><?= date("H:i a", strtotime($row->date)) ?></li>
 										<li><i class="fa fa-calendar"></i><?= date("M jS, Y", strtotime($row->date)) ?></li>
 									</ul>
@@ -28,11 +28,11 @@
 										<i class="fa fa-star-half-o"></i>
 									</span>
 								</div>
-								<a href="">
-									<img src="<?= ROOT . $row->image ?>" alt="">
+								<a href="<?= ROOT ?>post/<?= $row->url_address ?>">
+									<img src="<?= ROOT . $row->image ?>" alt="<?= htmlspecialchars($row->title) ?>">
 								</a>
-								<p><?= $row->post ?></p>
-								<a class="btn btn-primary" href="">Read More</a>
+								<p><?= nl2br(htmlspecialchars(substr($row->post, 0, 260))) ?>...</p>
+								<a class="btn btn-primary" href="<?= ROOT ?>post/<?= $row->url_address ?>">Read More</a>
 							</div>
 							<!--End single-blog-post-->
 						<?php endforeach; ?>
