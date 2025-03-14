@@ -53,12 +53,14 @@ class Home extends Controller
             $data['Slider_ROWS'][] = $Slider_ROWS[$i];
         }
 
-        // get products for lower bottom navbar
-        $data['bottom_navbar'] = $this->get_bottom_navbar();
 
         // get all categories
         $category = $this->load_model("category");
         $data['categories'] = $category->get_all();
+
+        // get products for lower bottom navbar
+        $data['segment_data'] = $this->get_segment_data($DB, $data['categories']);
+
 
         // get all slider content
         $Slider = $this->load_model("slider");
@@ -74,5 +76,26 @@ class Home extends Controller
         $this->view("index", $data);
     }
 
-    private function get_bottom_navbar() {}
+    private function get_segment_data($DB, $categories)
+    {
+        $results = array();
+        $mycats = array();
+        $num = 0;
+        foreach ($categories as $cat) {
+
+
+            $arr['id'] = $cat->id;
+            $ROWS = $DB->read("select * from products where category = :id", $arr);
+            if (is_array($ROWS)) {
+                $cat->category = preg_replace("/\w+/", "", $cat->category);
+                $results[$cat->category] = $ROWS;
+
+                $num++;
+                if ($num > 5) {
+                    break;
+                }
+            }
+        }
+        return $results;
+    }
 }

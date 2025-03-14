@@ -22,6 +22,8 @@
 						<?php endforeach; ?>
 					<?php endif; ?>
 
+					<?php show($segment_data) ?>
+
 				</div><!--features_items-->
 
 				<div class="category-tab"><!--category-tab-->
