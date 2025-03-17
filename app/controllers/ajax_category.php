@@ -1,11 +1,9 @@
 <?php
-
 class Ajax_category extends Controller
 {
     public function index()
     {
         $_SESSION['error'] = "";
-
         $data = file_get_contents("php://input");
         $data = json_decode($data);
 
@@ -38,8 +36,7 @@ class Ajax_category extends Controller
                 }
             } else
             if ($data->data_type == 'disable_row') {
-
-                $disabled = ($data->current_state == "Enabled") ? 1 : 0; 
+                $disabled = ($data->current_state == "Enabled") ? 1 : 0;
                 $id = $data->id;
 
                 $query = "update categories set disabled = '$disabled' where id = '$id' limit 1";
@@ -55,29 +52,27 @@ class Ajax_category extends Controller
                 $arr['data_type'] = "disable_row";
 
                 echo json_encode($arr);
-
             } else
-            if ($data->data_type == 'edit_category')
-            {
+            if ($data->data_type == 'edit_category') {
                 $category->edit($data);
-                $arr['message'] = "You row has been edited";
+                $arr['message'] = "Your row has been edited";
                 $_SESSION['error'] = "";
                 $arr['message_type'] = "info";
-                
+
                 $cats = $category->get_all();
                 $arr['data'] = $category->make_table($cats);
                 $arr['data_type'] = "edit_category";
 
                 echo json_encode($arr);
-            }else
+            } else
                 if ($data->data_type == 'delete_row') {
 
                 // delete row
                 $category->delete($data->id);
-                $arr['message'] = "You row has been deleted";
+                $arr['message'] = "Your row has been deleted";
                 $_SESSION['error'] = "";
                 $arr['message_type'] = "info";
-                
+
                 $cats = $category->get_all();
                 $arr['data'] = $category->make_table($cats);
                 $arr['data_type'] = "delete_row";

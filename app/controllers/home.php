@@ -53,14 +53,12 @@ class Home extends Controller
             $data['Slider_ROWS'][] = $Slider_ROWS[$i];
         }
 
-
         // get all categories
         $category = $this->load_model("category");
         $data['categories'] = $category->get_all();
 
-        // get products for lower bottom navbar
-        $data['segment_data'] = $this->get_segment_data($DB, $data['categories']);
-
+        // get products for lower segment
+        $data['segment_data'] = $this->get_segment_data($DB, $data['categories'], $image_class);
 
         // get all slider content
         $Slider = $this->load_model("slider");
@@ -76,18 +74,21 @@ class Home extends Controller
         $this->view("index", $data);
     }
 
-    private function get_segment_data($DB, $categories)
+    private function get_segment_data($DB, $categories, $image_class)
     {
         $results = array();
         $mycats = array();
         $num = 0;
+
         foreach ($categories as $cat) {
-
-
             $arr['id'] = $cat->id;
-            $ROWS = $DB->read("select * from products where category = :id", $arr);
+            $ROWS = $DB->read("select * from products where category = :id order by rand() limit 5", $arr);
+
             if (is_array($ROWS)) {
-                $cat->category = preg_replace("/\w+/", "", $cat->category);
+                // crop images 
+                foreach ($ROWS as $key => $row) {
+                    $ROWS[$key]->image = $image_class->get_thumb_post($ROWS[$key]->image);
+                }
                 $results[$cat->category] = $ROWS;
 
                 $num++;

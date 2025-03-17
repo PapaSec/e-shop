@@ -34,11 +34,11 @@ class Product
         // Checking slug is unique
         $slug_arr['slug'] = $arr['slug'];
         $query = "select slug from products where slug = :slug limit 1";
-            $check = $DB->read($query, $slug_arr);
+        $check = $DB->read($query, $slug_arr);
 
-            if ($check) {
-                $arr['slug'] .= "-" . rand(0.99999);
-            }
+        if ($check) {
+            $arr['slug'] .= "-" . rand(0.99999);
+        }
 
         $arr['image']  = "";
         $arr['image2'] = "";
@@ -46,6 +46,7 @@ class Product
         $arr['image4'] = "";
 
         $allowed[] = "image/jpeg";
+        $allowed[] = "image/png";
         $size = 10;
         $size = ($size * 1024 * 1024);
         $folder = "uploads/";
@@ -58,11 +59,12 @@ class Product
         foreach ($FILES as $key => $img_row) {
             if ($img_row['error'] == 0 && in_array($img_row['type'], $allowed)) {
                 if ($img_row['size'] < $size) {
-                    $destination = $folder . $image_class->generate_filename(60) . ".jpg";
+                    $extension = ($img_row['type'] == "image/png") ? ".png" : ".jpg";
+                    $destination = $folder . $image_class->generate_filename(60) . $extension;
+
                     move_uploaded_file($img_row['tmp_name'], $destination);
                     $arr[$key] = $destination;
-                    $image_class->resize_image($destination,$destination, 1500, 1500);
-
+                    $image_class->resize_image($destination, $destination, 1500, 1500);
                 } else {
                     $_SESSION['error'] .= $key . "Size is bigger than required size<br>";
                 }
@@ -107,6 +109,7 @@ class Product
         }
 
         $allowed[] = "image/jpeg";
+        $allowed[] = "image/png";
         $size = 10;
         $size = ($size * 1024 * 1024);
         $folder = "uploads/";
@@ -118,14 +121,15 @@ class Product
         // Check for files
         foreach ($FILES as $key => $img_row) {
             if ($img_row['error'] == 0 && in_array($img_row['type'], $allowed)) {
-                if ($img_row['size'] < $size) 
-                {
-                    $destination = $folder . $image_class->generate_filename(60) . ".jpg";
+                if ($img_row['size'] < $size) {
+                    $extension = ($img_row['type'] == "image/png") ? ".png" : ".jpg";
+                    $destination = $folder . $image_class->generate_filename(60) . $extension;
+
                     move_uploaded_file($img_row['tmp_name'], $destination);
                     $arr[$key] = $destination;
                     $image_class->resize_image($destination, $destination, 1500, 1500);
 
-                   $image_string .= ",". $key ." = :".$key;
+                    $image_string .= "," . $key . " = :" . $key;
                 } else {
                     $_SESSION['error'] .= $key . "Size is bigger than required size<br>";
                 }
