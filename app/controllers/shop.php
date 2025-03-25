@@ -4,6 +4,10 @@ class Shop extends Controller
 {
     public function index()
     {
+        //pagination formula
+        $limit = 3;
+        $page_number = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+        $offset = ($page_number - 1) * $limit;
 
         // check if its a serach request
         $search = false;
@@ -24,9 +28,9 @@ class Shop extends Controller
 
         if ($search) {
             $arr['description'] = "%" . $find . "%";
-            $ROWS = $DB->read("select * from products where description like :description ", $arr);
+            $ROWS = $DB->read("select * from products where description like :description limit $limit offset $offset", $arr);
         } else {
-            $ROWS = $DB->read("select * from products");
+            $ROWS = $DB->read("select * from products limit $limit offset $offset");
         }
 
 
@@ -49,6 +53,11 @@ class Shop extends Controller
 
     public function category($cat_find = '')
     {
+        //pagination formula
+        $limit = 3;
+        $page_number = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+        $offset = ($page_number - 1) * $limit;
+
         $User = $this->load_model("User");
         $category = $this->load_model("category");
         $image_class = $this->load_model("Image");
@@ -66,7 +75,7 @@ class Shop extends Controller
             $cat_id = $check->id;
         }
 
-        $ROWS = $DB->read("select * from products where category = :cat_id", ['cat_id' => $cat_id]);
+        $ROWS = $DB->read("select * from products where category = :cat_id limit $limit offset $offset", ['cat_id' => $cat_id]);
 
         $data['page_title'] = "Shop";
 

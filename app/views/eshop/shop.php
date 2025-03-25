@@ -10,9 +10,9 @@
 <section>
 	<div class="container">
 		<div class="row">
-			
-		<!-- Sidebar -->
-		<?php $this->view("sidebar.inc", $data); ?>
+
+			<!-- Sidebar -->
+			<?php $this->view("sidebar.inc", $data); ?>
 
 			<div class="col-sm-9 padding-right">
 				<div class="features_items"><!--features_items-->
@@ -28,10 +28,12 @@
 
 					<br style="clear: both;">
 					<ul class="pagination">
+						<li><a href="">Prev</a></li>
 						<li class="active"><a href="">1</a></li>
 						<li><a href="">2</a></li>
 						<li><a href="">3</a></li>
 						<li><a href="">&raquo;</a></li>
+						<li><a href="">Next</a></li>
 					</ul>
 				</div><!--features_items-->
 			</div>

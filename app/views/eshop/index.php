@@ -41,8 +41,8 @@
 						<div class="tab-content">
 
 							<?php $num = 0 ?>
-							<?php foreach ($segment_data as $key  => $seg): $num++ ?>
-								<div class="tab-pane fade <?= ($num == 1) ? ' active in ' : ''; ?>" id="<?= $key ?>">
+							<?php foreach ($segment_data as $category_name  => $seg): $num++ ?>
+								<div class="tab-pane fade <?= ($num == 1) ? ' active in ' : ''; ?>" id="<?= $category_name ?>">
 
 									<div class="col-sm-10">
 
