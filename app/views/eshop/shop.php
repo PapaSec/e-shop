@@ -28,12 +28,14 @@
 
 					<br style="clear: both;">
 					<ul class="pagination">
-						<li><a href="">Prev</a></li>
-						<li class="active"><a href="">1</a></li>
-						<li><a href="">2</a></li>
-						<li><a href="">3</a></li>
+						<li><a href="<?= $page_links->prev ?>">Prev</a></li>
+
+						<li <?= ($page_links->current == 1) ? 'class="active"' : ''; ?>><a href="">1</a></li>
+						<li <?= ($page_links->current == 2) ? 'class="active"' : ''; ?>><a href="">2</a></li>
+						<li <?= ($page_links->current == 3) ? 'class="active"' : ''; ?>><a href="">3</a></li>
 						<li><a href="">&raquo;</a></li>
-						<li><a href="">Next</a></li>
+
+						<li><a href="<?= $page_links->next ?>">Next</a></li>
 					</ul>
 				</div><!--features_items-->
 			</div>
