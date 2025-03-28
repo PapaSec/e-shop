@@ -30,10 +30,14 @@
 					<ul class="pagination">
 						<li><a href="<?= Page::links()->prev ?>">Prev</a></li>
 
-						<li <?= (Page::links()->current == 1) ? 'class="active"' : ''; ?>><a href="">1</a></li>
-						<li <?= (Page::links()->current == 2) ? 'class="active"' : ''; ?>><a href="">2</a></li>
-						<li <?= (Page::links()->current == 3) ? 'class="active"' : ''; ?>><a href="">3</a></li>
-						<li><a href="">&raquo;</a></li>
+						<?php
+						$max = Page::links()->current + 5;
+						$cur = (Page::links()->current > 5) ? Page::links()->current - 5 : 1;
+						?>
+						<?php for ($i = $cur; $i < $max; $i++): ?>
+							<li <?= (Page::links()->current == $i) ? 'class="active"' : ''; ?>><a href="<?= Page::generate($i) ?>"><?= $i ?></a></li>
+							<!--<li><a href="">&raquo;</a></li>-->
+						<?php endfor; ?>
 
 						<li><a href="<?= Page::links()->next ?>">Next</a></li>
 					</ul>

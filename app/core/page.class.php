@@ -3,6 +3,19 @@
 class Page
 {
 
+    public static function generate($number)
+    {
+        $number = (int)$number;
+        $query_string = str_replace("url=", "", $_SERVER['QUERY_STRING']);
+
+        $current_link = ROOT . $query_string;
+        if (!strstr($current_link, "pg=")) {
+            $current_link .= "&pg=1";
+        }
+
+        return preg_replace("/pg=[^&?=]+/", "pg=" . $number, $current_link);
+    }
+
     public static function links()
     {
         $links = (object)[];
