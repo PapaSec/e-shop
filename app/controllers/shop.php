@@ -56,10 +56,8 @@ class Shop extends Controller
     public function category($cat_find = '')
     {
         //pagination formula
-        $limit = 3;
-        $page_number = isset($_GET['pg']) ? (int)$_GET['pg'] : 1;
-        $page_number = $page_number < 1 ? 1 : $page_number;
-        $offset = ($page_number - 1) * $limit;
+        $limit = 10;
+        $offset = Page::get_offset($limit);
 
         $User = $this->load_model("User");
         $category = $this->load_model("category");

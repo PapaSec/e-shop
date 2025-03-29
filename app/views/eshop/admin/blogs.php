@@ -52,6 +52,9 @@
                         </tr>
                     <?php endforeach; ?>
                 <?php endif; ?>
+                <tr>
+                    <td colspan="6"><?php Page::show_links(); ?></td>
+                </tr>
             </tbody>
 
         <?php elseif ($mode == "edit"): ?>
@@ -131,7 +134,7 @@
                 <tr>
                     <td><?= htmlspecialchars($blogs->title ?? '', ENT_QUOTES) ?></td>
                     <td><a href="<?= ROOT ?>profile/<?= htmlspecialchars($blogs->user_url ?? '', flags: ENT_QUOTES) ?>"><?= htmlspecialchars($blogs->user_data->name ?? '', ENT_QUOTES) ?></a></td>
-                    <td><?= htmlspecialchars($blogs->post ?? '', ENT_QUOTES) ?></td>
+                    <td><?= nl2br(htmlspecialchars($blogs->post)) ?></td>
                     <td class="blogs-cell"><img src="<?= ROOT . $blogs->image ?>" style="width:80px;" /></td>
                     <td><?= date("jS M Y H:i a", strtotime($blogs->date)) ?></td>
                 </tr>

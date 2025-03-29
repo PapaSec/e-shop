@@ -4,6 +4,9 @@ class Blog extends Controller
 {
     public function index()
     {
+        //pagination formula
+        $limit = 2;
+        $offset = Page::get_offset($limit);
 
         // check if its a serach request
         $search = false;
@@ -25,9 +28,9 @@ class Blog extends Controller
 
         if ($search) {
             $arr['title'] = "%" . $find . "%";
-            $ROWS = $DB->read("select * from blogs where title like :title ", $arr);
+            $ROWS = $DB->read("select * from blogs where title like :title limit $limit offset $offset", $arr);
         } else {
-            $ROWS = $DB->read("select * from blogs order by id desc");
+            $ROWS = $DB->read("select * from blogs order by id desc limit $limit offset $offset");
         }
 
         $data['page_title'] = "Blog";

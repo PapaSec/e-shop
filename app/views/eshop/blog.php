@@ -38,14 +38,7 @@
 						<?php endforeach; ?>
 					<?php endif; ?>
 
-					<div class="pagination-area">
-						<ul class="pagination">
-							<li><a href="" class="active">1</a></li>
-							<li><a href="">2</a></li>
-							<li><a href="">3</a></li>
-							<li><a href=""><i class="fa fa-angle-double-right"></i></a></li>
-						</ul>
-					</div>
+					<?php Page::show_links(); ?>
 				</div>
 			</div>
 		</div>

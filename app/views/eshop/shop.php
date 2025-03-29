@@ -26,21 +26,9 @@
 						<?php endforeach; ?>
 					<?php endif; ?>
 
-					<br style="clear: both;">
-					<ul class="pagination">
-						<li><a href="<?= Page::links()->prev ?>">Prev</a></li>
+					<?php Page::show_links(); ?>
 
-						<?php
-						$max = Page::links()->current + 5;
-						$cur = (Page::links()->current > 5) ? Page::links()->current - 5 : 1;
-						?>
-						<?php for ($i = $cur; $i < $max; $i++): ?>
-							<li <?= (Page::links()->current == $i) ? 'class="active"' : ''; ?>><a href="<?= Page::generate($i) ?>"><?= $i ?></a></li>
-							<!--<li><a href="">&raquo;</a></li>-->
-						<?php endfor; ?>
 
-						<li><a href="<?= Page::links()->next ?>">Next</a></li>
-					</ul>
 				</div><!--features_items-->
 			</div>
 		</div>
