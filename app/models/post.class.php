@@ -157,7 +157,7 @@ class Post
     public function get_all()
     {
         // pagination formula
-        $limit = 4;
+        $limit = 10;
         $offset = Page::get_offset($limit);
 
         $DB = Database::newInstance();

@@ -28,7 +28,13 @@ class Admin extends Controller
         }
 
         $DB = Database::newInstance();
-        $categories_all = $DB->read("select * from categories order by category desc");
+
+        // pagination formula
+        $limit = 10;
+        $offset = Page::get_offset($limit);
+        $categories_all = $DB->read("select * from categories order by category desc limit $limit offset $offset");
+
+
         $categories = $DB->read("select * from categories where disabled = 0 order by id desc");
 
         $category = $this->load_model("Category");
@@ -53,9 +59,13 @@ class Admin extends Controller
         }
 
         $DB = Database::newInstance();
-        $products = $DB->read("select * from products order by category desc");
 
-        $categories = $DB->read("select * from categories where disabled = 0 order by id desc");
+        // pagination formula
+        $limit = 10;
+        $offset = Page::get_offset($limit);
+        $products = $DB->read("select * from products order by category desc limit $limit offset $offset");
+
+        $categories = $DB->read("select * from categories where disabled = 0 order by id desc ");
 
         $product = $this->load_model("Product");
         $category = $this->load_model("Category");

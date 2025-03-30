@@ -88,6 +88,10 @@
                 </a>
             </div>
         <?php endif; ?>
+        </tbody>
+        <tr>
+            <td colspan="6"><?php Page::show_links(); ?></td>
+        </tr>
     </table>
 </div>
 

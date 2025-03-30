@@ -60,7 +60,11 @@ class Message
 
     public function get_all()
     {
+        // pagination formula
+        $limit = 10;
+        $offset = Page::get_offset($limit);
+
         $DB = Database::newInstance();
-        return $DB->read("select * from contact_us order by id desc");
+        return $DB->read("select * from contact_us order by id desc limit $limit offset $offset");
     }
 }
