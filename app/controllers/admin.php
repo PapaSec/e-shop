@@ -65,7 +65,8 @@ class Admin extends Controller
         $offset = Page::get_offset($limit);
         $products = $DB->read("select * from products order by category desc limit $limit offset $offset");
 
-        $categories = $DB->read("select * from categories where disabled = 0 order by id desc ");
+        $categories = $DB->read("select * from categories where disabled = 0 order by views desc ");
+        $brands = $DB->read("select * from brands where disabled = 0 order by views desc ");
 
         $product = $this->load_model("Product");
         $category = $this->load_model("Category");
@@ -73,7 +74,7 @@ class Admin extends Controller
         $tbl_rows = $product->make_table($products, $category);
         $data['tbl_rows'] = $tbl_rows;
         $data['categories'] = $categories;
-
+        $data['brands'] = $brands;
 
 
 

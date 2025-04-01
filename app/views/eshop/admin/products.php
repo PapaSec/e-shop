@@ -229,6 +229,20 @@
                     </div>
 
                     <div class="form-group">
+                        <label>Brand:</label>
+                        <select id="brand" name="brand" class="form-control" required>
+                            <?php if (is_array($brands)): ?>
+                                <option></option>
+                                <?php foreach ($brands as $brand): ?>
+
+                                    <option value="<?= $brand->id ?>"><?= $brand->brand ?></option>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+                        </select>
+                    </div>
+
+
+                    <div class="form-group">
                         <label>Price:</label>
                         <input id="price" name="price" type="number" placeholder="0.00" step="0.01" class="form-control" required>
                     </div>
@@ -292,6 +306,20 @@
                             <?php endif; ?>
                         </select>
                     </div>
+
+                    <div class="form-group">
+                        <label>Brand:</label>
+                        <select id="edit_brand" name="brand" class="form-control" required>
+                            <option></option>
+                            <?php if (is_array($brands)): ?>
+                                <?php foreach ($brands as $brand): ?>
+
+                                    <option value="<?= $brand->id ?>"><?= $brand->brand ?></option>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+                        </select>
+                    </div>
+
 
                     <div class="form-group">
                         <label>Price:</label>
@@ -437,6 +465,14 @@
             return
         }
 
+        var brand_input = document.querySelector("#brand");
+        if (brand_input.value.trim() == "" || isNaN(brand_input.value.trim())) {
+
+            alert("Please enter a valid brand");
+            return
+        }
+
+
         var price_input = document.querySelector("#price");
         if (price_input.value.trim() == "" || isNaN(price_input.value.trim())) {
 
@@ -475,6 +511,7 @@
         data.append('description', product_input.value.trim());
         data.append('quantity', quantity_input.value.trim());
         data.append('category', category_input.value.trim());
+        data.append('brand', brand_input.value.trim());
         data.append('price', price_input.value.trim());
         data.append('data_type', 'add_product');
         data.append('image', image_input.files[0]);
