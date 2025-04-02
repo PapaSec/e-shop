@@ -10,6 +10,7 @@ class Product
         $arr['description'] = ucwords($DATA->description);
         $arr['quantity']    =  $DATA->quantity;
         $arr['category']    =  $DATA->category;
+        $arr['brand']       =  $DATA->brand;
         $arr['price']       =  $DATA->price;
         $arr['date']        = date("Y-m-d H:i:s");
         $arr['user_url']    = $_SESSION['user_url'];
@@ -25,6 +26,10 @@ class Product
 
         if (!is_numeric($arr['category'])) {
             $_SESSION['error'] .= "Please enter a valid category<br>";
+        }
+
+        if (!is_numeric($arr['brand'])) {
+            $_SESSION['error'] .= "Please enter a valid brand<br>";
         }
 
         if (!is_numeric($arr['price'])) {
@@ -72,7 +77,7 @@ class Product
         }
 
         if (!isset($_SESSION['error']) || $_SESSION['error'] == "") {
-            $query = "insert into products (description,quantity,category,price,date,user_url,image,image2,image3,image4,slug) values (:description,:quantity,:category,:price,:date,:user_url,:image,:image2,:image3,:image4,:slug)";
+            $query = "insert into products (description,quantity,category,brand,price,date,user_url,image,image2,image3,image4,slug) values (:description,:quantity,:category,:brand,:price,:date,:user_url,:image,:image2,:image3,:image4,:slug)";
             $check = $DB->write($query, $arr);
 
             if ($check) {
