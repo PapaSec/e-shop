@@ -94,6 +94,7 @@ class Product
         $arr['description'] = $data->description;
         $arr['quantity'] = $data->quantity;
         $arr['category'] = $data->category;
+        $arr['brand'] = $data->brand;
         $arr['price'] = $data->price;
         $image_string = "";
 
@@ -107,6 +108,10 @@ class Product
 
         if (!is_numeric($arr['category'])) {
             $_SESSION['error'] .= "Please enter a valid category<br>";
+        }
+
+        if (!is_numeric($arr['brand'])) {
+            $_SESSION['error'] .= "Please enter a valid brand<br>";
         }
 
         if (!is_numeric($arr['price'])) {
@@ -143,7 +148,7 @@ class Product
 
         if (!isset($_SESSION['error']) || $_SESSION['error'] == "") {
             $DB = Database::newInstance();
-            $query = "update products set description = :description, quantity = :quantity, category = :category, price = :price $image_string where id = :id limit 1";
+            $query = "update products set description = :description, quantity = :quantity, category = :category, brand = :brand, price = :price $image_string where id = :id limit 1";
             $DB->write($query, $arr);
         }
     }
@@ -185,6 +190,7 @@ class Product
                 $info['quantity'] = $cat_row->quantity;
                 $info['price'] = $cat_row->price;
                 $info['category'] = $cat_row->category;
+                $info['brand'] = $cat_row->brand;
                 $info['image'] = $cat_row->image;
                 $info['image2'] = $cat_row->image2;
                 $info['image3'] = $cat_row->image3;
