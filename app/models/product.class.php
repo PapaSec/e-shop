@@ -190,7 +190,7 @@ class Product
                 $info['quantity'] = $cat_row->quantity;
                 $info['price'] = $cat_row->price;
                 $info['category'] = $cat_row->category;
-                $info['brand'] = $cat_row->brand;
+                $info['brand_name'] = $cat_row->brand_name;
                 $info['image'] = $cat_row->image;
                 $info['image2'] = $cat_row->image2;
                 $info['image3'] = $cat_row->image3;
@@ -206,6 +206,7 @@ class Product
                     <td>' . $cat_row->description . '</td>
                     <td>' . $cat_row->quantity . '</td>
                     <td>' . $one_cat->category . '</td>
+                    <td>' . $cat_row->brand_name . '</td>
                     <td>' . $cat_row->price . '</td>
                     <td>' . date("jS M y", strtotime($cat_row->date)) . '</td>
                     <td><img src="' . ROOT . $cat_row->image . '" style="width:50px; height:50px;" /></td>

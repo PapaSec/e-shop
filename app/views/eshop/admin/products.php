@@ -363,6 +363,7 @@
                         <th> Product Name</th>
                         <th> Quantity</th>
                         <th> Category</th>
+                        <th> Brand</th>
                         <th> Price</th>
                         <th> date</th>
                         <th> Images</th>
