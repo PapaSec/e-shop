@@ -194,6 +194,61 @@
 <div class="row mt">
     <div class="col-md-12">
         <div class="content-panel">
+
+            <!-- Search-Box -->
+            <form method="get">
+                <table class="table">
+                    <tr>
+                        <th>Search</th>
+                        <td>
+                            <input type="text" class="form-control">
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th>Category</th>
+                        <td>
+                            <select class="form-control">
+                                <option>--Any Category--</option>
+                            </select>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th>Brands</th>
+                        <td>
+                            <input id="abrand" type="checkbox" class="form-checkbox-input" name="">
+                            <label for="abrand">A Brand</label>
+                            <input id="abrand" type="checkbox" class="form-checkbox-input" name="">
+                            <label for="abrand">A Brand</label>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th>Year</th>
+                        <td>
+                            <select class="form-control">
+                                <option>--Any Year--</option>
+                            </select>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th>Price</th>
+                        <td>
+                            <input type="number" class="form-control" placeholder="0.00" step="0.01">
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th>Quantity</th>
+                        <td>
+                            <input type="number" class="form-control" step="0.01">
+                        </td>
+                    </tr>
+                </table>
+            </form>
+            <!-- End-Search-Box -->
             <div class="table-header">
                 <h4 class="table-title"><i class="fa fa-folder-open"></i> Products</h4>
                 <button class="add-button" onclick="show_add_new(event)">
