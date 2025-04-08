@@ -249,6 +249,8 @@
                 </table>
             </form>
             <!-- End-Search-Box -->
+
+
             <div class="table-header">
                 <h4 class="table-title"><i class="fa fa-folder-open"></i> Products</h4>
                 <button class="add-button" onclick="show_add_new(event)">
@@ -671,7 +673,7 @@
 
     // handle result
     function handle_result(result) {
-        console.log(result);
+        // console.log(result);
         if (result != "") {
             var obj = JSON.parse(result);
 
