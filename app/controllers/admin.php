@@ -60,7 +60,7 @@ class Admin extends Controller
         $DB = Database::newInstance();
 
         // pagination formula
-        $limit = 10;
+        $limit = 5;
         $offset = Page::get_offset($limit);
         $products = $DB->read("SELECT products.*,brands.brand as brand_name FROM products join brands on brands.id = products.brand order by products.id desc limit $limit offset $offset");
 

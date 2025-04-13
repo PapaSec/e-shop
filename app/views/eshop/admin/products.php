@@ -197,53 +197,55 @@
 
             <!-- Search-Box -->
             <form method="get">
-                <table class="table">
+                <table class="table table-striped table-bordered table-hover">
                     <tr>
-                        <th>Search</th>
+                        <th>Description</th>
                         <td>
-                            <input type="text" class="form-control">
+                            <input type="text" class="form-control" name="description" placeholder="Search here..." autofocus="true">
                         </td>
-                    </tr>
-
-                    <tr>
                         <th>Category</th>
                         <td>
-                            <select class="form-control">
+                            <select class="form-control" name="category">
                                 <option>--Any Category--</option>
                             </select>
                         </td>
                     </tr>
-
+                    <tr>
+                        <th>Price</th>
+                        <td>
+                            <div class="form-inline">
+                                <label for="">Min :</label>
+                                <input type="number" class="form-control" value="0" step="0.01" name="price">
+                                <label for="">Max :</label>
+                                <input type="number" class="form-control" value="0" step="0.01" name="price">
+                            </div>
+                        </td>
+                        <th>Quantity</th>
+                        <td>
+                            <div class="form-inline">
+                                <label for="">Min :</label>
+                                <input type="number" class="form-control" value="0" step="0.01" name="quantity">
+                                <label for="">Max :</label>
+                                <input type="number" class="form-control" value="0" step="0.01" name="quantity">
+                            </div>
+                        </td>
+                    </tr>
                     <tr>
                         <th>Brands</th>
-                        <td>
-                            <input id="abrand" type="checkbox" class="form-checkbox-input" name="">
+                        <td colspan="3">
+                            <input id="abrand" type="checkbox" class="form-checkbox-input" name="brand-0">
                             <label for="abrand">A Brand</label>
-                            <input id="abrand" type="checkbox" class="form-checkbox-input" name="">
+                            <input id="abrand" type="checkbox" class="form-checkbox-input" name="brand-1">
                             <label for="abrand">A Brand</label>
                         </td>
                     </tr>
 
                     <tr>
                         <th>Year</th>
-                        <td>
+                        <td colspan="3">
                             <select class="form-control">
                                 <option>--Any Year--</option>
                             </select>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <th>Price</th>
-                        <td>
-                            <input type="number" class="form-control" placeholder="0.00" step="0.01">
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <th>Quantity</th>
-                        <td>
-                            <input type="number" class="form-control" step="0.01">
                         </td>
                     </tr>
                 </table>
