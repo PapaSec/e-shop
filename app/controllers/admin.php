@@ -30,7 +30,7 @@ class Admin extends Controller
         $DB = Database::newInstance();
 
         // pagination formula
-        $limit = 10;
+        $limit = 5;
         $offset = Page::get_offset($limit);
         $categories_all = $DB->read("select * from categories order by category desc limit $limit offset $offset");
 
