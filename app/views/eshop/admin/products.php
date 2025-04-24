@@ -207,6 +207,7 @@
                         <td>
                             <select class="form-control" name="category">
                                 <option>--Any Category--</option>
+                                <?php Search::get_categories(); ?>
                             </select>
                         </td>
                     </tr>
@@ -215,37 +216,38 @@
                         <td>
                             <div class="form-inline">
                                 <label for="">Min :</label>
-                                <input type="number" class="form-control" value="0" step="0.01" name="price">
+                                <input type="number" class="form-control" value="0" step="0.01" name="min-price">
                                 <label for="">Max :</label>
-                                <input type="number" class="form-control" value="0" step="0.01" name="price">
+                                <input type="number" class="form-control" value="0" step="0.01" name="max-price">
                             </div>
                         </td>
                         <th>Quantity</th>
                         <td>
                             <div class="form-inline">
                                 <label for="">Min :</label>
-                                <input type="number" class="form-control" value="0" step="0.01" name="quantity">
+                                <input type="number" class="form-control" value="0" step="0.01" name="min-qty">
                                 <label for="">Max :</label>
-                                <input type="number" class="form-control" value="0" step="0.01" name="quantity">
+                                <input type="number" class="form-control" value="0" step="0.01" name="max-qty">
                             </div>
                         </td>
                     </tr>
                     <tr>
                         <th>Brands</th>
                         <td colspan="3">
-                            <input id="abrand" type="checkbox" class="form-checkbox-input" name="brand-0">
-                            <label for="abrand">A Brand</label>
-                            <input id="abrand" type="checkbox" class="form-checkbox-input" name="brand-1">
-                            <label for="abrand">A Brand</label>
+                            <?php Search::get_brands(); ?>
                         </td>
                     </tr>
 
                     <tr>
                         <th>Year</th>
-                        <td colspan="3">
-                            <select class="form-control">
+                        <td colspan="2">
+                            <select class="form-control" name="year">
                                 <option>--Any Year--</option>
+                                <?php Search::get_years(); ?>
                             </select>
+                        </td>
+                        <td>
+                            <input type="submit" class="btn btn-success" name="search" value="Search">
                         </td>
                     </tr>
                     <tr>
