@@ -67,8 +67,19 @@ class Admin extends Controller
         // pagination formula
         $limit = 5;
         $offset = Page::get_offset($limit);
-        $products = $DB->read("SELECT products.*,brands.brand as brand_name FROM products join brands on brands.id = products.brand order by products.id desc limit $limit offset $offset");
 
+        if ($search) {
+
+            $query = "
+            
+            ";
+
+            $products = $DB->read($query);
+        } else {
+            $products = $DB->read("SELECT prod.*,brands.brand as brand_name, cat.category as category_name FROM 
+            products as prod join brands on brands.id = prod.brand join categories as cat on cat.id = prod.category order 
+            by prod.id desc limit $limit offset $offset");
+        }
         $categories = $DB->read("select * from categories where disabled = 0 order by views desc ");
         $brands = $DB->read("select * from brands where disabled = 0 order by views desc ");
 

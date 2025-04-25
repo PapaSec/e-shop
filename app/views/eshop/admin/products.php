@@ -196,18 +196,19 @@
         <div class="content-panel">
 
             <!-- Search-Box -->
+            <?php show(data: $_GET); ?>
             <form method="get">
                 <table class="table table-striped table-bordered table-hover">
                     <tr>
                         <th>Description</th>
                         <td>
-                            <input type="text" class="form-control" name="description" placeholder="Search here..." autofocus="true">
+                            <input value="<?php Search::get_sticky('textbox', 'description') ?>" type="text" class="form-control" name="description" placeholder="Search here..." autofocus="true">
                         </td>
                         <th>Category</th>
                         <td>
                             <select class="form-control" name="category">
                                 <option>--Any Category--</option>
-                                <?php Search::get_categories(); ?>
+                                <?php Search::get_categories('category'); ?>
                             </select>
                         </td>
                     </tr>
@@ -216,25 +217,25 @@
                         <td>
                             <div class="form-inline">
                                 <label for="">Min :</label>
-                                <input type="number" class="form-control" value="0" step="0.01" name="min-price">
+                                <input value="<?php Search::get_sticky('number', 'min-price') ?>" type="number" class="form-control" step="0.01" name="min-price">
                                 <label for="">Max :</label>
-                                <input type="number" class="form-control" value="0" step="0.01" name="max-price">
+                                <input value="<?php Search::get_sticky('number', 'max-price') ?>" type="number" class="form-control" step="0.01" name="max-price">
                             </div>
                         </td>
                         <th>Quantity</th>
                         <td>
                             <div class="form-inline">
                                 <label for="">Min :</label>
-                                <input type="number" class="form-control" value="0" step="0.01" name="min-qty">
+                                <input value="<?php Search::get_sticky('number', 'min-qty') ?>" step="1" name="min-qty">
                                 <label for="">Max :</label>
-                                <input type="number" class="form-control" value="0" step="0.01" name="max-qty">
+                                <input value="<?php Search::get_sticky('number', 'max-qty') ?>" step="1" name="max-qty">
                             </div>
                         </td>
                     </tr>
                     <tr>
                         <th>Brands</th>
                         <td colspan="3">
-                            <?php Search::get_brands(); ?>
+                            <?php Search::get_brands('brand-$num'); ?>
                         </td>
                     </tr>
 
@@ -243,7 +244,7 @@
                         <td colspan="2">
                             <select class="form-control" name="year">
                                 <option>--Any Year--</option>
-                                <?php Search::get_years(); ?>
+                                <?php Search::get_years('year'); ?>
                             </select>
                         </td>
                         <td>

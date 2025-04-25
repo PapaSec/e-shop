@@ -198,14 +198,14 @@ class Product
 
                 $info = str_replace('"', "'", json_encode($info));
 
-                $one_cat = $this->get_one($cat_row->category);
+                //$one_cat = $this->get_one($cat_row->category);
                 $result .= "<tr>";
 
                 $result .= '
                     <td>' . $cat_row->id . '</td>
                     <td>' . $cat_row->description . '</td>
                     <td>' . $cat_row->quantity . '</td>
-                    <td>' . $one_cat->category . '</td>
+                    <td>' . $cat_row->category_name . '</td>
                     <td>' . $cat_row->brand_name . '</td>
                     <td>' . $cat_row->price . '</td>
                     <td>' . date("jS M y", strtotime($cat_row->date)) . '</td>
