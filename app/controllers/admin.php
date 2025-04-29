@@ -54,6 +54,7 @@ class Admin extends Controller
         $search = false;
         if (isset($_GET['search'])) {
             $search = $_GET['search'];
+            // show($_GET);
             $search = true;
         }
         $User = $this->load_model("User");
@@ -70,15 +71,27 @@ class Admin extends Controller
 
         if ($search) {
 
+            $description = isset($_GET['description']) ? $_GET['description'] : "";
+
             $query = "
-            
+             SELECT prod.*, cat.category as category_name, brands.brand as brand_name
+             
+             FROM products as prod join categories as cat on cat.id = prod.category 
+
+             join brands on brands.id = prod.brand ";
+
+            if ($description != "") {
+                $query .= " WHERE prod.description like '%$description%' ";
+            }
+
+            $query .= "
+
+             order by prod.id desc limit $limit offset $offset
             ";
 
             $products = $DB->read($query);
         } else {
-            $products = $DB->read("SELECT prod.*,brands.brand as brand_name, cat.category as category_name FROM 
-            products as prod join brands on brands.id = prod.brand join categories as cat on cat.id = prod.category order 
-            by prod.id desc limit $limit offset $offset");
+            $products = $DB->read("SELECT prod.*,brands.brand as brand_name, cat.category as category_name FROM products as prod join brands on brands.id = prod.brand join categories as cat on cat.id = prod.category order by prod.id desc limit $limit offset $offset");
         }
         $categories = $DB->read("select * from categories where disabled = 0 order by views desc ");
         $brands = $DB->read("select * from brands where disabled = 0 order by views desc ");

@@ -196,7 +196,7 @@
         <div class="content-panel">
 
             <!-- Search-Box -->
-            <?php show(data: $_GET); ?>
+            <!-- ?php show(data: $_GET); ?> -->
             <form method="get">
                 <table class="table table-striped table-bordered table-hover">
                     <tr>
