@@ -4,6 +4,17 @@ class Home extends Controller
 {
     public function index()
     {
+        $limit = 6;
+        $offset = Page::get_offset($limit);
+
+        $search = false;
+        if (isset($_GET['search'])) {
+            $search = true;
+        }
+
+        if (isset($_GET['search'])) {
+            $search = true;
+        }
 
         // check if its a serach request
         $search = false;
@@ -26,10 +37,17 @@ class Home extends Controller
 
         // read main posts
         if ($search) {
-            $arr['description'] = "%" . $find . "%";
-            $ROWS = $DB->read("select * from products where description like :description ", $arr);
+            if (isset($_GET['find'])) {
+                $arr['description'] = "%" . $find . "%";
+                $ROWS = $DB->read("select * from products where description like :description limit $limit offset $offset", $arr);
+            } else {
+                // Advanced search
+                // GENERATE A SEARCH QUERY
+                $query = Search::make_query($_GET, $limit, $offset);
+                $ROWS = $DB->read($query);
+            }
         } else {
-            $ROWS = $DB->read("select * from products");
+            $ROWS = $DB->read("select * from products limit $limit offset $offset ");
         }
 
         if ($ROWS) {

@@ -34,8 +34,8 @@
 					<div class="col-sm-6">
 						<div class="contactinfo">
 							<ul class="nav nav-pills">
-								<li><a href="#"><i class="fa fa-phone"></i> <?=Settings::phone_number()?></a></li>
-								<li><a href="#"><i class="fa fa-envelope"></i> <?=Settings::email()?> </a></li>
+								<li><a href="#"><i class="fa fa-phone"></i> <?= Settings::phone_number() ?></a></li>
+								<li><a href="#"><i class="fa fa-envelope"></i> <?= Settings::email() ?> </a></li>
 								<?php if (isset($data['user_data'])): ?>
 									<li><a href="#"><i class="fa fa-user"></i> <?= $data['user_data']->name ?></a></li>
 								<?php endif; ?>
@@ -45,11 +45,11 @@
 					<div class="col-sm-6">
 						<div class="social-icons pull-right">
 							<ul class="nav navbar-nav">
-								<li><a target="_new" href="<?=Settings::facebook_link()?>"><i class="fa fa-facebook"></i></a></li>
-								<li><a target="_new" href="<?=Settings::x_link()?>"><i class="fa fa-twitter"></i></a></li>
-								<li><a target="_new" href="<?=Settings::linkedin_link()?>"><i class="fa fa-linkedin"></i></a></li>
-								<li><a target="_new" href="<?=Settings::google_plus_link()?>"><i class="fa fa-dribbble"></i></a></li>
-								<li><a target="_new" href="<?=Settings::website_lin()?>"><i class="fa fa-google-plus"></i></a></li>
+								<li><a target="_new" href="<?= Settings::facebook_link() ?>"><i class="fa fa-facebook"></i></a></li>
+								<li><a target="_new" href="<?= Settings::x_link() ?>"><i class="fa fa-twitter"></i></a></li>
+								<li><a target="_new" href="<?= Settings::linkedin_link() ?>"><i class="fa fa-linkedin"></i></a></li>
+								<li><a target="_new" href="<?= Settings::google_plus_link() ?>"><i class="fa fa-dribbble"></i></a></li>
+								<li><a target="_new" href="<?= Settings::website_lin() ?>"><i class="fa fa-google-plus"></i></a></li>
 							</ul>
 						</div>
 					</div>
@@ -62,7 +62,7 @@
 				<div class="row">
 					<div class="col-sm-4">
 						<div class="logo pull-left">
-							<a href="<?=ROOT?>"><img src="<?= ASSETS . THEME ?>/images/home/logo.png" alt="" /></a>
+							<a href="<?= ROOT ?>"><img src="<?= ASSETS . THEME ?>/images/home/logo.png" alt="" /></a>
 						</div>
 
 
@@ -83,7 +83,7 @@
 
 									<li><a href="<?= ROOT ?>login"><i class="fa fa-lock"></i> Login</a></li>
 								<?php endif; ?>
-								
+
 
 							</ul>
 						</div>
@@ -113,14 +113,14 @@
 							</ul>
 						</div>
 					</div>
-					<?php if(isset($show_search)): ?>
-					<div class="col-sm-3">
-						<form method="get">
-							<div class="search_box pull-right">
-								<input name="find" type="text" placeholder="Search" />
-							</div>
-						</form>
-					</div>
+					<?php if (isset($show_search)): ?>
+						<div class="col-sm-3">
+							<form method="get">
+								<div class="search_box pull-right">
+									<input name="find" type="text" placeholder="Search" />
+								</div>
+							</form>
+						</div>
 					<?php endif; ?>
 				</div>
 			</div>

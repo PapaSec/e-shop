@@ -57,6 +57,7 @@ class Admin extends Controller
             // show($_GET);
             $search = true;
         }
+
         $User = $this->load_model("User");
         $user_data = $User->check_login(true, ["admin"]);
         if (is_object($user_data)) {
@@ -71,95 +72,8 @@ class Admin extends Controller
 
         if ($search) {
 
-            $params = array();
-
-            // add description if available
-            if (isset($_GET['description']) && trim($_GET['description']) != "") {
-                $params['description'] = $_GET['description'];
-            }
-
-            // add category if available
-            if (isset($_GET['category']) && trim($_GET['category']) != "--Select Category--") {
-                $params['category'] =  $_GET['category'];
-            }
-
-            // add year if available
-            if (isset($_GET['year']) && trim($_GET['year']) != "--Select Year--") {
-                $params['year'] =  $_GET['year'];
-            }
-
-            // add min-price if available
-            if (isset($_GET['min-price']) && trim($_GET['max-price']) != "0" && trim($_GET['min-price']) != "" && trim($_GET['max-price']) != "") {
-                $params['min-price'] =  (float)$_GET['min-price'];
-                $params['max-price'] =  (float)$_GET['max-price'];
-            }
-
-            // add min-quantity if available
-            if (isset($_GET['min-qty']) && trim($_GET['max-qty']) != "0" & trim($_GET['min-qty']) != "" && trim($_GET['max-qty']) != "") {
-                $params['min-qty'] =  (int)$_GET['min-qty'];
-                $params['max-qty'] =  (int)$_GET['max-qty'];
-            }
-
-            // add max-price if available
-            if (isset($_GET['max-price']) && trim($_GET['max-price']) != "0") {
-                $params['max-price'] =  $_GET['max-price'];
-            }
-
-            $brands = array();
-            // add brands if available
-            foreach ($_GET as $key => $value) {
-                if (strstr($key, "brand-")) {
-                    $brands[] = $value;
-                }
-            }
-
-            if (count($brands) > 0) {
-                $params['brands'] = implode("','", $brands);
-            }
-
-            $query = "
-             SELECT prod.*, cat.category as category_name, brands.brand as brand_name
-             
-             FROM products as prod join categories as cat on cat.id = prod.category 
-
-             join brands on brands.id = prod.brand ";
-
-            if (count($params) > 0) {
-                $query .= " WHERE ";
-            }
-
-            if (isset($params['description'])) {
-                $query .= " prod.description like '%$params[description]%' AND ";
-            }
-
-            if (isset($params['category'])) {
-                $query .= " cat.id = '$params[category]' AND ";
-            }
-
-            if (isset($params['min-price'])) {
-                $query .= " (prod.price BETWEEN '" . $params['min-price'] . "' AND '" . $params['max-price'] . "') AND ";
-            }
-
-            if (isset($params['min-qty'])) {
-                $query .= " (prod.quantity BETWEEN '" . $params['min-qty'] . "' AND '" . $params['max-qty'] . "') AND ";
-            }
-
-            if (isset($params['brands'])) {
-                $query .= " brands.id in ('" . $params['brands'] . "') AND ";
-            }
-
-
-            if (isset($params['year'])) {
-                $query .= " YEAR(prod.date) = '$params[year]' AND ";
-            }
-
-            $query = trim($query);
-            $query = trim($query, " AND ");
-            $query .= "
-
-             order by prod.id desc limit $limit offset $offset
-            ";
-
+            // GENERATE A SEARCH QUERY
+            $query = Search::make_query($_GET, $limit, $offset);
             $products = $DB->read($query);
         } else {
             $products = $DB->read("SELECT prod.*,brands.brand as brand_name, cat.category as category_name FROM products as prod join brands on brands.id = prod.brand join categories as cat on cat.id = prod.category order by prod.id desc limit $limit offset $offset");
