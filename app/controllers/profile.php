@@ -10,6 +10,9 @@ class Profile extends Controller
         $user_data = $User->check_login(true);
 
         if ($url_address) {
+
+            $_SESSION['user_url'] = isset($_SESSION['user_url']) ? $_SESSION['user_url'] : '';
+            $url_address = $url_address == 'home' ? $_SESSION['user_url'] : $url_address;
             $profile_data = $User->get_user($url_address);
         } else {
             $profile_data = $user_data;
@@ -18,8 +21,8 @@ class Profile extends Controller
         if (is_object($user_data)) {
             $data['user_data'] = $user_data;
         }
-        var_dump($profile_data);
-        if (is_array($profile_data)) {
+
+        if (is_object($profile_data)) {
             $orders = $Order->get_orders_by_user($profile_data->url_address);
         } else {
             $orders = false;

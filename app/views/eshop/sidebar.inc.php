@@ -60,7 +60,7 @@
             <table class="table table-striped table-bordered table-hover">
                 <tr>
                     <td>
-                        <input value="<?php Search::get_sticky('textbox', 'description') ?>" type="text" class="form-control" name="description" placeholder="Type product name" autofocus="true">
+                        <input value="<?= Search::get_sticky('textbox', 'description') ?>" type="text" class="form-control" name="description" placeholder="Type product name" autofocus="true">
                     </td>
                 </tr>
                 <tr>
@@ -92,7 +92,7 @@
                         <div class="form-inline">
 
                             <div class="well text-center quantity-range" style="margin-top: 0px; margin-bottom: 0px;">
-                                <input type="text" class="span2" value="" data-slider-min="0" data-slider-max="1000" data-slider-step="5" data-slider-value="[0,1000]" id="sl2"><br />
+                                <input type="text" class="span2" value="" data-slider-min="0" data-slider-max="1000" data-slider-step="5" data-slider-value="[0,1000]" id="sl3"><br />
                                 <b class="pull-left">0</b> <b class="pull-right">1000</b>
                             </div>
 
