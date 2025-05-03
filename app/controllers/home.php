@@ -12,12 +12,7 @@ class Home extends Controller
             $search = true;
         }
 
-        if (isset($_GET['search'])) {
-            $search = true;
-        }
-
         // check if its a serach request
-        $search = false;
         if (isset($_GET['find'])) {
             $find = addslashes($_GET['find']);
             $search = true;
