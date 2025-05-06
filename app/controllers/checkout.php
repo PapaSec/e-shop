@@ -154,7 +154,7 @@ class Checkout extends Controller
 
     public function thank_you()
     {
-        
+
         $data['page_title'] = "Thank You";
         $this->view("checkout.thank_you", $data);
     }
