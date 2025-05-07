@@ -5,6 +5,12 @@ class Profile extends Controller
     public function index($url_address = null)
     {
 
+        //pagination formula
+        $limit = 5;
+        $page_number = isset($_GET['pg']) ? (int)$_GET['pg'] : 1;
+        $page_number = $page_number < 1 ? 1 : $page_number;
+        $offset = ($page_number - 1) * $limit;
+
         $User = $this->load_model("User");
         $Order = $this->load_model("Order");
         $user_data = $User->check_login(true);
@@ -31,8 +37,12 @@ class Profile extends Controller
         if (is_array($orders)) {
             foreach ($orders as $key => $row) {
                 $details = $Order->get_order_details($row->id);
-                $totals = array_column($details, "total");
-                $grand_total = array_sum($totals);
+                $grand_total = 0; // default value
+
+                if (is_array($details)) {
+                    $totals = array_column($details, "total");
+                    $grand_total = array_sum($totals);
+                }
 
                 $orders[$key]->details = $details;
                 $orders[$key]->grand_total = $grand_total;

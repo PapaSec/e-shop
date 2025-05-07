@@ -152,17 +152,18 @@
                     </div>
                 <?php else: ?>
                     <<div class="user-not-found" style="text-align: center; padding: 40px 20px; margin: 20px auto; max-width: 500px; background-color: #f8f9fa; border-radius: 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
-                    <h3 style="color: #dc3545; margin-bottom: 15px;">This User Has No Orders Yet</h3>     
-                </div>
-                <?php endif; ?>
-
-            <?php else: ?>
-                <div class="user-not-found" style="text-align: center; padding: 40px 20px; margin: 20px auto; max-width: 500px; background-color: #f8f9fa; border-radius: 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
-                    <h3 style="color: #dc3545; margin-bottom: 15px;">User Not Found</h3>
-                    <p style="color: #6c757d;">The user profile you're looking for doesn't exist or may have been removed.</p>
-                </div>
-            <?php endif; ?>
+                        <h3 style="color: #dc3545; margin-bottom: 15px;">This User Has No Orders Yet</h3>
         </div>
+    <?php endif; ?>
+
+<?php else: ?>
+    <div class="user-not-found" style="text-align: center; padding: 40px 20px; margin: 20px auto; max-width: 500px; background-color: #f8f9fa; border-radius: 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+        <h3 style="color: #dc3545; margin-bottom: 15px;">User Not Found</h3>
+        <p style="color: #6c757d;">The user profile you're looking for doesn't exist or may have been removed.</p>
+    </div>
+<?php endif; ?>
+<?php Page::show_links(); ?>
+</div>
     </section>
 </section>
 
