@@ -5,12 +5,6 @@ class Profile extends Controller
     public function index($url_address = null)
     {
 
-        //pagination formula
-        $limit = 5;
-        $page_number = isset($_GET['pg']) ? (int)$_GET['pg'] : 1;
-        $page_number = $page_number < 1 ? 1 : $page_number;
-        $offset = ($page_number - 1) * $limit;
-
         $User = $this->load_model("User");
         $Order = $this->load_model("Order");
         $user_data = $User->check_login(true);

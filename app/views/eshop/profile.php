@@ -162,7 +162,6 @@
         <p style="color: #6c757d;">The user profile you're looking for doesn't exist or may have been removed.</p>
     </div>
 <?php endif; ?>
-<?php Page::show_links(); ?>
 </div>
     </section>
 </section>
