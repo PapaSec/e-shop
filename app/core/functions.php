@@ -36,3 +36,16 @@ function str_to_url($url)
 
     return $url;
 }
+function get_order_id()
+{
+
+    $order = 1;
+    $DB = Database::newInstance();
+    $ROWS = $DB->read("select id from orders order by id desc limit 1");
+
+    if (is_array($ROWS)) {
+        $order = $ROWS[0]->id + 1;
+    }
+
+    return $order;
+}

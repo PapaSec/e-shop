@@ -69,6 +69,7 @@ class Checkout extends Controller
             $order = $this->load_model('Order');
             $order->validate($_POST);
             $data['errors'] = $order->errors;
+            $_POST['order_id'] = get_order_id();
 
             $_SESSION['POST_DATA'] = $_POST;
             $data['POST_DATA'] = $_POST;
@@ -127,7 +128,11 @@ class Checkout extends Controller
 
 
         $data['order_details'] = $ROWS;
-        $data['orders'][] = $_SESSION['POST_DATA'];
+
+        if (isset($_SESSION['POST_DATA'])) {
+            $data['POST_DATA'] = $_SESSION['POST_DATA'];
+        }
+
         $data['page_title'] = "Checkout - Summary";
 
 
@@ -143,13 +148,20 @@ class Checkout extends Controller
             $order->save_order($_SESSION['POST_DATA'], $ROWS, $user_url, $sessionid);
             $data['errors'] = $order->errors;
 
-            unset($_SESSION['POST_DATA']);
+            //unset($_SESSION['POST_DATA']);
             unset($_SESSION['CART']);
 
-            header("Location:" . ROOT . "checkout/thank_you");
+            header("Location:" . ROOT . "checkout/pay");
             die;
         }
         $this->view("checkout.summary", $data);
+    }
+
+    public function pay()
+    {
+
+        $data['page_title'] = "Pay Now";
+        $this->view("checkout.pay", $data);
     }
 
     public function thank_you()

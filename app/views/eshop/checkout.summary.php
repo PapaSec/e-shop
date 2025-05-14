@@ -21,7 +21,7 @@ if (isset($errors) && count($errors) > 0):
 			</ol>
 		</div><!--/breadcrums-->
 
-		<?php if (is_array($orders)): ?>
+		<?php if (isset($orders_details) && is_array($orders_details)): ?>
 
 			<div class="alert alert-info mb-4">
 				<p class="mb-0" style="text-align: center;">Please confirm the information is correct.</p>
