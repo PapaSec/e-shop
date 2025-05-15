@@ -44,8 +44,16 @@ function get_order_id()
     $ROWS = $DB->read("select id from orders order by id desc limit 1");
 
     if (is_array($ROWS)) {
-        $order = $ROWS[0]->id + 1;
+        $order = "order " . ($ROWS[0]->id + 1);
     }
-
     return $order;
+}
+
+function get_total($ROWS)
+{
+    $total = 0;
+    foreach ($ROWS as $key => $row) {
+        $total += $row->price * $row->cart_qty;
+    }
+    return $total;
 }

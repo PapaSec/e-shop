@@ -133,11 +133,12 @@ class Checkout extends Controller
             $data['POST_DATA'] = $_SESSION['POST_DATA'];
         }
 
+        $data['order_details'] = $ROWS;
+        $data['orders'][] = $_SESSION['POST_DATA'];
+
         $data['page_title'] = "Checkout - Summary";
 
-
         if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['POST_DATA'])) {
-
             $sessionid = session_id();
             $user_url = "";
             if (isset($_SESSION['user_url'])) {
@@ -145,10 +146,11 @@ class Checkout extends Controller
             }
 
             $order = $this->load_model('Order');
+            $_SESSION['POST_DATA']['total'] = get_total($ROWS);
+            $_SESSION['POST_DATA']['description'] = get_order_id();
             $order->save_order($_SESSION['POST_DATA'], $ROWS, $user_url, $sessionid);
             $data['errors'] = $order->errors;
 
-            //unset($_SESSION['POST_DATA']);
             unset($_SESSION['CART']);
 
             header("Location:" . ROOT . "checkout/pay");
@@ -166,7 +168,14 @@ class Checkout extends Controller
 
     public function thank_you()
     {
+        if (isset($_SESSION['POST_DATA'])) {
+            unset($_SESSION['POST_DATA']);
+        }
 
+        if (isset($_SESSION['CART'])) {
+            unset($_SESSION['CART']);
+        }
+        unset($_SESSION['POST_DATA']);
         $data['page_title'] = "Thank You";
         $this->view("checkout.thank_you", $data);
     }

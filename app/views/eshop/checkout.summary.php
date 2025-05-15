@@ -1,5 +1,25 @@
 <?php $this->view("header", $data); ?>
 
+<!-- Add loading overlay -->
+<div id="loading-overlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255,255,255,0.9); z-index: 9999; justify-content: center; align-items: center;">
+	<div style="text-align: center;">
+		<div class="spinner" style="width: 50px; height: 50px; border: 5px solid #f3f3f3; border-top: 5px solid #3498db; border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 20px auto;"></div>
+		<h3 style="color: #333; font-weight: 500;">Processing Payment...</h3>
+	</div>
+</div>
+
+<style>
+	@keyframes spin {
+		0% {
+			transform: rotate(0deg);
+		}
+
+		100% {
+			transform: rotate(360deg);
+		}
+	}
+</style>
+
 <?php
 if (isset($errors) && count($errors) > 0):
 ?>
@@ -21,7 +41,7 @@ if (isset($errors) && count($errors) > 0):
 			</ol>
 		</div><!--/breadcrums-->
 
-		<?php if (isset($orders_details) && is_array($orders_details)): ?>
+		<?php if (isset($orders) && is_array($orders)): ?>
 
 			<div class="alert alert-info mb-4">
 				<p class="mb-0" style="text-align: center;">Please confirm the information is correct.</p>
@@ -124,7 +144,7 @@ if (isset($errors) && count($errors) > 0):
 
 		<form method="post">
 			<input type="hidden" name="POST_DATA" value="1">
-			<input type="submit" class="btn btn-warning pull-right" value="PAY" style="margin-left: 10px;">
+			<input type="submit" class="btn btn-warning pull-right" value="PAY" style="margin-left: 10px;" onclick="showLoadingOverlay()">
 		</form>
 		<input type="button" class="btn btn-warning pull-right" value="BACK TO CHECKOUT" onclick="window.location.href='<?= ROOT ?>checkout'">
 	</div>
@@ -181,6 +201,18 @@ if (isset($errors) && count($errors) > 0):
 			}
 		}
 	}
+</script>
+
+<script>
+	// Show loading overlay when form is submitted
+	function showLoadingOverlay() {
+		document.getElementById('loading-overlay').style.display = 'flex';
+	}
+
+	// Optional: Add event listener for form submission
+	document.querySelector('form').addEventListener('submit', function(e) {
+		showLoadingOverlay();
+	});
 </script>
 
 <?php $this->view("footer", $data); ?>

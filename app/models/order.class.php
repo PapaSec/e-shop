@@ -50,22 +50,15 @@ class Order extends Controller
     public function save_order($POST, $ROWS, $user_url, $sessionid)
     {
 
-
-        $total = 0;
-        foreach ($ROWS as $key => $row) {
-            $total += $row->price * $row->cart_qty;
-        }
-
         $db = Database::newInstance();
-
         if (is_array($ROWS) && count($this->errors) == 0) {
 
             $countries = $this->load_model('Countries');
-
             $data = array();
             $data['user_url'] = $user_url;
             $data['delivery_address'] = $POST['address1'] . " " . $POST['address2'];
-            $data['total'] = $total;
+            $data['total'] = $POST['total'];
+            $data['description'] = $POST['description'];
             //$country_obj = $countries->get_country($POST['country']) ;
             $data['country'] = $POST['country'];
             //$state_obj =  $countries->get_state($POST['state']);          
@@ -77,20 +70,19 @@ class Order extends Controller
             $data['sessionid'] = $sessionid;
             $data['phone_number'] = $POST['phone_number'];
 
-            $query = "INSERT INTO orders (user_url, delivery_address, total, country, state, postal_code, tax, shipping, date, sessionid, phone_number)
-            VALUES (:user_url, :delivery_address, :total, :country, :state, :postal_code, :tax, :shipping, :date, :sessionid, :phone_number)";
-
-            $result = $db->write($query, $data);
-
             // save details
-
             $orderid = 0;
             $query = "select id from orders order by id desc limit 1";
             $result = $db->read($query);
 
             if (is_array($result)) {
-                $orderid = $result[0]->id;
+                $orderid = $result[0]->id + 1;
             }
+
+            $query = "INSERT INTO orders (description,user_url, delivery_address, total, country, state, postal_code, tax, shipping, date, sessionid, phone_number)
+            VALUES (:description,:user_url, :delivery_address, :total, :country, :state, :postal_code, :tax, :shipping, :date, :sessionid, :phone_number)";
+
+            $result = $db->write($query, $data);
 
             foreach ($ROWS as $row) {
                 $data = array();
