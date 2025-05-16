@@ -1,13 +1,11 @@
 <?php $this->view("header", $data); ?>
 
 <?php
-
 if (isset($_SESSION['POST_DATA'])) {
     $total = 0;
     $description = "order 0";
     extract($_SESSION['POST_DATA']);
 }
-
 ?>
 
 <div class="payment-container" style="display: flex; justify-content: center; align-items: center; padding: 10px 20px; background: linear-gradient(135deg, #f0f4f8 0%, #d9e4f5 100%);">
@@ -80,7 +78,7 @@ if (isset($_SESSION['POST_DATA'])) {
                 color: 'gold',
                 layout: 'vertical',
                 label: 'paypal',
-                height: 45, // Reduced height for compactness
+                height: 45,
             },
 
             createOrder: function(data, actions) {
@@ -111,7 +109,25 @@ if (isset($_SESSION['POST_DATA'])) {
 
             onApprove: function(data, actions) {
                 return actions.order.capture().then(function(details) {
-                    window.location.href = '<?= ROOT . "thanks?mode=approved&name=" . urlencode("{details.payer.name.given_name}") ?>'.replace("{details.payer.name.given_name}", encodeURIComponent(details.payer.name.given_name));
+                    fetch('<?= ROOT ?>payment', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify(details),
+                        })
+                        .then(response => {
+                            if (!response.ok) {
+                                console.error('Failed to record payment on server:', response.statusText);
+                            }
+                            // Redirect to thank you page
+                            window.location.href = '<?= ROOT . "thanks?mode=approved&name=" . urlencode("{details.payer.name.given_name}") ?>'.replace("{details.payer.name.given_name}", encodeURIComponent(details.payer.name.given_name));
+                        })
+                        .catch(error => {
+                            console.error('Error sending payment data:', error);
+                            // Redirect even if AJAX fails
+                            window.location.href = '<?= ROOT . "thanks?mode=approved&name=" . urlencode("{details.payer.name.given_name}") ?>'.replace("{details.payer.name.given_name}", encodeURIComponent(details.payer.name.given_name));
+                        });
                 });
             },
 

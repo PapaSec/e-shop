@@ -151,7 +151,7 @@ class Checkout extends Controller
             $order->save_order($_SESSION['POST_DATA'], $ROWS, $user_url, $sessionid);
             $data['errors'] = $order->errors;
 
-            unset($_SESSION['CART']);
+            //unset($_SESSION['CART']);
 
             header("Location:" . ROOT . "checkout/pay");
             die;
