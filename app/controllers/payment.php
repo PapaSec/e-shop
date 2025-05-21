@@ -11,13 +11,14 @@ class Payment extends Controller
         // Get the actual payload
         $rawData = file_get_contents('php://input');
         if (empty($rawData)) {
-            error_log("No payload received at " . date('Y-m-d H:i:s'));
+            error_log("No payload received at " . date('Y-m-d H:i:s') . " - Server variables: " . json_encode($_SERVER));
             http_response_code(400);
             die("No payload received");
         }
 
-        // Log the raw payload for debugging
-        error_log("Raw Payload Received: " . $rawData);
+        // Log the raw payload and server environment
+        error_log("Raw Payload Received at " . date('Y-m-d H:i:s') . ": " . $rawData);
+        error_log("Server Environment: " . json_encode($_SERVER));
 
         // Decode the payload
         $obj = json_decode($rawData);
@@ -100,6 +101,7 @@ class Payment extends Controller
                 $arr['last_name'] = $obj->payer->name->surname ?? '';
                 $arr['email_address'] = $obj->payer->email_address ?? ($arr['email_address'] ?? '');
 
+                // Check for existing CHECKOUT.ORDER.APPROVED
                 if ($paypal_order_id) {
                     $check_query = "SELECT id, event_type, status FROM payments WHERE paypal_order_id = :paypal_order_id LIMIT 1";
                     $check_result = $DB->read($check_query, ['paypal_order_id' => $paypal_order_id]);
