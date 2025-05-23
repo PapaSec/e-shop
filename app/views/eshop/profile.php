@@ -85,18 +85,24 @@
                                     <th>Delivery Address</th>
                                     <th>City/State</th>
                                     <th>Phone Number</th>
+                                    <th>Status</th>
                                     <th>Order Total</th>
                                     <th>...</th>
                                 </tr>
                             </thead>
                             <tbody onclick="show_details(event)">
                                 <?php foreach ($orders as $order): ?>
+
+                                    <?php
+                                    $status = is_paid($order);
+                                    ?>
                                     <tr style="position: relative;">
                                         <td><?= $order->id ?></td>
                                         <td><?= date("jS M Y H:i a", strtotime($order->date)) ?></td>
                                         <td><?= $order->delivery_address ?></td>
                                         <td><?= $order->state ?></td>
                                         <td><?= $order->phone_number ?></td>
+                                        <td><?= $status ?></td>
                                         <td>R <?= $order->total ?></td>
                                         <td>
                                             <i class="fa fa-arrow-down"></i>

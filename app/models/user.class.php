@@ -95,7 +95,14 @@ class User
             if (is_array($result)) {
 
                 $_SESSION['user_url'] = $result[0]->url_address;
-                header("Location: " . ROOT . "home");
+
+                if (isset($_SESSION['intended_url'])) {
+                    $url = $_SESSION['intended_url'];
+                    unset($_SESSION['intended_url']);
+                    header("Location: " . $url);
+                } else {
+                    header("Location: " . ROOT . "home");
+                }
                 die;
             }
 
@@ -137,7 +144,7 @@ class User
     {
         $db = Database::newInstance();
         $arr = [];
-        $arr['rank'] = "admin"; 
+        $arr['rank'] = "admin";
         $query = "select * from users where rank = :rank";
         $result = $db->read($query, $arr);
 
@@ -235,6 +242,7 @@ class User
         // Check if user_url is set in session
         if (!isset($_SESSION['user_url'])) {
             if ($redirect) {
+                $_SESSION['intended_url'] = FULL_URL;
                 header("Location: " . ROOT . "login");
                 die;
             }
@@ -254,30 +262,28 @@ class User
                     return $result;
                 }
             }
+            $_SESSION['intended_url'] = FULL_URL;
+            header("Location: " . ROOT . "login");
+            die;
+        } else {
+            // Already checked isset($_SESSION['user_url']) above, so proceed
+            $arr = [];
+            $arr['url'] = $_SESSION['user_url'];
+            $query = "select * from users where url_address = :url limit 1";
+            $result = $db->read($query, $arr);
 
-            // If rank is not allowed, handle redirect
+            if (is_array($result)) {
+                return $result[0];
+            }
+
             if ($redirect) {
+                echo "here1";
+                $_SESSION['intended_url'] = FULL_URL;
                 header("Location: " . ROOT . "login");
                 die;
             }
-            return false;
         }
 
-        // If no allowed ranks are specified, just check if the user is logged in
-        $arr = [];
-        $arr['url_address'] = $_SESSION['user_url'];
-        $query = "select * from users where url_address = :url_address limit 1";
-        $result = $db->read($query, $arr);
-
-        if (is_array($result)) {
-            return $result[0];
-        }
-
-        // If user is not found, handle redirect
-        if ($redirect) {
-            header("Location: " . ROOT . "login");
-            die;
-        }
         return false;
     }
 

@@ -29,8 +29,9 @@
                 <th>Delivery Address</th>
                 <th>City/State</th>
                 <th>Phone</th>
+                <th>status</th>
                 <th>Total</th>
-                <th></th>
+                <th>...</th>
             </tr>
         </thead>
         <tbody>
@@ -46,6 +47,7 @@
                     <td><?= htmlspecialchars($order->delivery_address ?? '', ENT_QUOTES) ?></td>
                     <td><?= htmlspecialchars($order->state ?? '', ENT_QUOTES) ?></td>
                     <td><?= htmlspecialchars($order->phone_number ?? '', ENT_QUOTES) ?></td>
+                    <td><?= is_paid($order) ?></td>
                     <td>R <?= number_format($order->total ?? 0, 2) ?></td>
                     <td>
                         <button class="btn btn-sm btn-outline-secondary"
@@ -127,7 +129,7 @@
                 </tr>
             <?php endforeach; ?>
             <tr>
-                <td colspan="8"><?php Page::show_links(); ?></td>
+                <td colspan="9"><?php Page::show_links(); ?></td>
             </tr>
         </tbody>
     </table>

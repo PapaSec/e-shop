@@ -57,3 +57,89 @@ function get_total($ROWS)
     }
     return $total;
 }
+
+function is_paid($order)
+{
+    $arr['amount'] = $order->total;
+    $arr['order_id'] = $order->description;
+    $DB = Database::newInstance();
+    $payment = $DB->read("SELECT id FROM payments WHERE amount = :amount AND order_id = :order_id LIMIT 1", $arr);
+
+    return (is_array($payment))
+        ? "<button class='btn btn-success'>Paid</button>"
+        : "<button class='btn btn-warning'>Not Paid</button>";
+}
+function is_paid_bol($order)
+{
+    $arr['amount'] = $order->total;
+    $arr['order_id'] = $order->description;
+    $DB = Database::newInstance();
+    $payment = $DB->read("SELECT id FROM payments WHERE amount = :amount AND order_id = :order_id LIMIT 1", $arr);
+
+    if (is_array($payment)) {
+        return true;
+    }
+    return false;
+}
+
+function get_admin_count()
+{
+    $DB = Database::newInstance();
+    $ROWS = $DB->read("select id from users where rank = 'admin'");
+    if (is_array($ROWS)) {
+        return count($ROWS);
+    }
+    return 0;
+}
+function get_customer_count()
+{
+    $DB = Database::newInstance();
+    $ROWS = $DB->read("select id from users where rank = 'customer'");
+    if (is_array($ROWS)) {
+        return count($ROWS);
+    }
+    return 0;
+}
+
+function get_order_count()
+{
+    $DB = Database::newInstance();
+    $ROWS = $DB->read("select id from orders");
+
+    if (is_array($ROWS)) {
+        return count($ROWS);
+    }
+    return 0;
+}
+
+function get_category_count()
+{
+    $DB = Database::newInstance();
+    $ROWS = $DB->read("select id from orders");
+    if (is_array($ROWS)) {
+        return count($ROWS);
+    }
+    return 0;
+}
+
+function get_product_count()
+{
+    $DB = Database::newInstance();
+    $ROWS = $DB->read("select id from categories");
+    if (is_array($ROWS)) {
+        return count($ROWS);
+    }
+    return 0;
+}
+
+function get_payment_total()
+{
+    $DB = Database::newInstance();
+    $ROWS = $DB->read("select amount from payments");
+    if (is_array($ROWS)) {
+        $amounts = array_column($ROWS, 'amount');
+        $total = array_sum($amounts);
+        return $total;
+    }
+    return 0;
+}
