@@ -1,22 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="Dashboard">
     <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
 
-    <title><?= $page_title . ' - ' . WEBSITE_NAME?></title>
+    <title><?= $page_title . ' - ' . WEBSITE_NAME ?></title>
 
     <!-- Bootstrap core CSS -->
-    <link href="<?=ASSETS . THEME ?>admin/css/bootstrap.css" rel="stylesheet">
+    <link href="<?= ASSETS . THEME ?>admin/css/bootstrap.css" rel="stylesheet">
     <!--external css-->
-    <link href="<?=ASSETS . THEME ?>admin/font-awesome/css/font-awesome.css" rel="stylesheet" />
-        
+    <link href="<?= ASSETS . THEME ?>admin/font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <!-- Custom styles for this template -->
-    <link href="<?=ASSETS . THEME ?>admin/css/style.css" rel="stylesheet">
-    <link href="<?=ASSETS . THEME ?>admin/css/style-responsive.css" rel="stylesheet">
+    <link href="<?= ASSETS . THEME ?>admin/css/style.css" rel="stylesheet">
+    <link href="<?= ASSETS . THEME ?>admin/css/style-responsive.css" rel="stylesheet">
 
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -24,21 +26,21 @@
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-  </head>
+</head>
 
-  <body>
-<source>
-  <section id="container" >
-      <!-- **********************************************************************************************************************************************************
+<body>
+    <source>
+    <section id="container">
+        <!-- **********************************************************************************************************************************************************
       TOP BAR CONTENT & NOTIFICATIONS
       *********************************************************************************************************************************************************** -->
-      <!--header start-->
-      <header class="header black-bg">
-              <div class="sidebar-toggle-box">
-                  <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
-              </div>
+        <!--header start-->
+        <header class="header black-bg">
+            <div class="sidebar-toggle-box">
+                <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
+            </div>
             <!--logo start-->
-            <a href="<?=ROOT?>admin" class="logo"><b>e-shop ADMIN</b></a>
+            <a href="<?= ROOT ?>admin" class="logo"><b>e-shop ADMIN</b></a>
             <!--logo end-->
             <div class="nav notify-row" id="top_menu">
                 <!--  notification start -->
@@ -125,10 +127,10 @@
                             </li>
                             <li>
                                 <a href="index.html#">
-                                    <span class="photo"><img alt="avatar" src="<?=ASSETS . THEME ?>admin/img/ui-zac.jpg"></span>
+                                    <span class="photo"><img alt="avatar" src="<?= ASSETS . THEME ?>admin/img/ui-zac.jpg"></span>
                                     <span class="subject">
-                                    <span class="from">Zac Snider</span>
-                                    <span class="time">Just now</span>
+                                        <span class="from">Zac Snider</span>
+                                        <span class="time">Just now</span>
                                     </span>
                                     <span class="message">
                                         Hi mate, how is everything?
@@ -137,22 +139,22 @@
                             </li>
                             <li>
                                 <a href="index.html#">
-                                    <span class="photo"><img alt="avatar" src="<?=ASSETS . THEME ?>admin/img/ui-divya.jpg"></span>
+                                    <span class="photo"><img alt="avatar" src="<?= ASSETS . THEME ?>admin/img/ui-divya.jpg"></span>
                                     <span class="subject">
-                                    <span class="from">Divya Manian</span>
-                                    <span class="time">40 mins.</span>
+                                        <span class="from">Divya Manian</span>
+                                        <span class="time">40 mins.</span>
                                     </span>
                                     <span class="message">
-                                     Hi, I need your help with this.
+                                        Hi, I need your help with this.
                                     </span>
                                 </a>
                             </li>
                             <li>
                                 <a href="index.html#">
-                                    <span class="photo"><img alt="avatar" src="<?=ASSETS . THEME ?>admin/img/ui-danro.jpg"></span>
+                                    <span class="photo"><img alt="avatar" src="<?= ASSETS . THEME ?>admin/img/ui-danro.jpg"></span>
                                     <span class="subject">
-                                    <span class="from">Dan Rogers</span>
-                                    <span class="time">2 hrs.</span>
+                                        <span class="from">Dan Rogers</span>
+                                        <span class="time">2 hrs.</span>
                                     </span>
                                     <span class="message">
                                         Love your new Dashboard.
@@ -161,10 +163,10 @@
                             </li>
                             <li>
                                 <a href="index.html#">
-                                    <span class="photo"><img alt="avatar" src="<?=ASSETS . THEME ?>admin/img/ui-sherman.jpg"></span>
+                                    <span class="photo"><img alt="avatar" src="<?= ASSETS . THEME ?>admin/img/ui-sherman.jpg"></span>
                                     <span class="subject">
-                                    <span class="from">Dj Sherman</span>
-                                    <span class="time">4 hrs.</span>
+                                        <span class="from">Dj Sherman</span>
+                                        <span class="time">4 hrs.</span>
                                     </span>
                                     <span class="message">
                                         Please, answer asap.
@@ -181,12 +183,12 @@
                 <!--  notification end -->
             </div>
             <div class="top-menu">
-            	<ul class="nav pull-right top-menu">
-                    <li><a class="logout" href="<?=ROOT?>logout">Logout</a></li>
-            	</ul>
                 <ul class="nav pull-right top-menu">
-                    <li><a class="logout" href="<?=ROOT?>">Website</a></li>
-            	</ul>
+                    <li><a class="logout" href="<?= ROOT ?>logout">Logout</a></li>
+                </ul>
+                <ul class="nav pull-right top-menu">
+                    <li><a class="logout" href="<?= ROOT ?>">Website</a></li>
+                </ul>
             </div>
         </header>
-      <!--header end-->
+        <!--header end-->

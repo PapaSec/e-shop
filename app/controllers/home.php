@@ -89,19 +89,18 @@ class Home extends Controller
 
     private function get_segment_data($DB, $categories, $image_class)
     {
-        $results = array();
-        $mycats = array();
+        $results = [];
+        $mycats = [];
         $num = 0;
-
         foreach ($categories as $cat) {
             $arr['id'] = $cat->id;
             $ROWS = $DB->read("select * from products where category = :id order by rand() limit 5", $arr);
-
             if (is_array($ROWS)) {
                 // crop images 
                 foreach ($ROWS as $key => $row) {
                     $ROWS[$key]->image = $image_class->get_thumb_post($ROWS[$key]->image);
                 }
+                $cat->category = preg_replace("/\w+/", " ", $cat->category);
                 $results[$cat->category] = $ROWS;
 
                 $num++;
