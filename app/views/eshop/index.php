@@ -43,14 +43,10 @@
 							<?php $num = 0 ?>
 							<?php foreach ($segment_data as $category_name  => $seg): $num++ ?>
 								<div class="tab-pane fade <?= ($num == 1) ? ' active in ' : ''; ?>" id="<?= $category_name ?>">
-
 									<div class="col-sm-10">
-
 										<?php if (is_array($seg)): ?>
 											<?php foreach ($seg as $row): ?>
-
 												<?php $this->view("product.inc", $row); ?>
-
 											<?php endforeach; ?>
 										<?php endif; ?>
 

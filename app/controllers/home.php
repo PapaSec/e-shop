@@ -100,7 +100,8 @@ class Home extends Controller
                 foreach ($ROWS as $key => $row) {
                     $ROWS[$key]->image = $image_class->get_thumb_post($ROWS[$key]->image);
                 }
-                $cat->category = preg_replace("/\w+/", " ", $cat->category);
+
+
                 $results[$cat->category] = $ROWS;
 
                 $num++;

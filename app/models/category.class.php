@@ -90,9 +90,7 @@ class Category
                     }
                 }
 
-
                 $result .= "<tr>";
-
                 $result .= '
                     <td>' . $cat_row->category . '</td>
                     <td>' . $parent . '</td>

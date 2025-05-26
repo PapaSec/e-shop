@@ -81,7 +81,7 @@
 	<div class="footer-bottom">
 		<div class="container">
 			<div class="row">
-				<p class="pull-left">Copyright © 2024 E-SHOPPER Inc. All rights reserved.</p>
+				<p class="pull-left">Copyright © <?php echo date('Y'); ?> E-SHOPPER Inc. All rights reserved.</p>
 				<p class="pull-right">Developed By <span><a target="_blank" href="#">Ron.Dev</a></span></p>
 			</div>
 		</div>
