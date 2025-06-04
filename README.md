@@ -11,10 +11,10 @@ Password: section48
 
 🔐 Demo Credentials For testing payment system
 
-Email 
+Email: 
 sb-ororv41401714@personal.example.com
 
-Password
+Password:
 qzlV"_8B
 
 🧰 Key Features
