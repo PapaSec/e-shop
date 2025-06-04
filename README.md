@@ -9,6 +9,14 @@ Email: tom@gmil.com
 Password: section48
 (For both frontend and admin panel access)
 
+🔐 Demo Credentials For testing payment system
+
+Email 
+sb-ororv41401714@personal.example.com
+
+Password
+qzlV"_8B
+
 🧰 Key Features
 📦 Product management and browsing
 
