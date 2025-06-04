@@ -1,4 +1,5 @@
 🛒 E-Shop — Live Demo https://e-shop.infy.uk/public/ | Admin Panel https://e-shop.infy.uk/public/?url=admin
+But in order to use Admin panel you need to login first and you can access the Admin button in the Footer.
 E-Shop is a classic e-commerce web application developed in core PHP using the MVC (Model-View-Controller) architectural pattern. It features a user-friendly shopping experience with product browsing, cart management, and a secure PayPal payment gateway integration.
 
 🔐 Demo Credentials
